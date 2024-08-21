@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>試験項目リスト</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+      }
+
+      /* サイドバーのスタイル */
+      .sidebar {
+        width: 200px;
+        background-color: #2c3e50;
+        color: white;
+        padding: 20px;
+        box-sizing: border-box;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        overflow-y: auto;
+      }
+
+      .sidebar a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        margin: 10px 0;
+      }
+
+      .sidebar a:hover {
+        background-color: #34495e;
+        padding-left: 10px;
+      }
+
+      /* メインコンテンツのスタイル */
+      .main-content {
+        margin-left: 200px;
+        padding: 20px;
+        box-sizing: border-box;
+        flex-grow: 1;
+        overflow-y: auto;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .execute-btn {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .execute-btn:hover {
+        background-color: #2980b9;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- サイドバー -->
+    <div class="sidebar">
+      <h2>サイドバー</h2>
+      <a href="./test.html">リンク1</a>
+      <a href="./sample.html">リンク2</a>
+      <a href="#">リンク3</a>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <div class="main-content">
+      <h1>試験項目リスト</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>選択</th>
+            <th>テスト名</th>
+            <th>実施日付</th>
+            <th>備考</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 試験項目をテーブルで表示 -->
+          <tr>
+            <td><input type="checkbox" id="test1" name="test1" /></td>
+            <td>試験項目1</td>
+            <td>2024-01-01</td>
+            <td>備考1</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" id="test2" name="test2" /></td>
+            <td>試験項目2</td>
+            <td>2024-01-02</td>
+            <td>備考2</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" id="test3" name="test3" /></td>
+            <td>試験項目3</td>
+            <td>2024-01-03</td>
+            <td>備考3</td>
+          </tr>
+          <!-- 繰り返しで合計30項目 -->
+          <!-- 省略部分... -->
+          <tr>
+            <td><input type="checkbox" id="test30" name="test30" /></td>
+            <td>試験項目30</td>
+            <td>2024-01-30</td>
+            <td>備考30</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 実行ボタン -->
+      <button class="execute-btn">実行</button>
+    </div>
+
+    <script>
+      // 全てのチェックボックスにイベントリスナーを設定
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const executeBtn = document.querySelector(".execute-btn");
+
+      // チェックボックス選択時の動作
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", function () {
+          if (this.checked) {
+            const testName = this.closest("tr").children[1].textContent;
+            console.log(`${testName} が選択されました`);
+          }
+        });
+      });
+
+      // 実行ボタン押下時の動作
+      executeBtn.addEventListener("click", function () {
+        const selectedTests = [];
+        checkboxes.forEach((checkbox) => {
+          if (checkbox.checked) {
+            const testName = checkbox.closest("tr").children[1].textContent;
+            selectedTests.push(testName);
+          }
+        });
+
+        if (selectedTests.length > 0) {
+          alert(`選択された試験項目: \n${selectedTests.join("\n")}`);
+          console.log(`選択された試験項目: ${selectedTests.join(", ")}`);
+        } else {
+          alert("選択された試験項目はありません");
+          console.log("選択された試験項目はありません");
+        }
+      });
+    </script>
+  </body>
+</html>
